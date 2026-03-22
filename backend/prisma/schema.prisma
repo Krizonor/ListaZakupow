@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Rodzina {
+  id        Int                @id @default(autoincrement())
+  nazwa     String
+  listy     ListaZakupow[]
+  czlonkowie CzlonkowieRodziny[]
+}
+
+model Uzytkownik {
+  id                     Int                @id @default(autoincrement())
+  imie                   String
+  email                  String             @unique
+  url_zdjecia_profilowego String?
+  listy                  ListaZakupow[]
+  rodziny                CzlonkowieRodziny[]
+}
+
+model CzlonkowieRodziny {
+  id            Int        @id @default(autoincrement())
+  rodzina_id    Int
+  uzytkownik_id Int
+
+  rodzina       Rodzina    @relation(fields: [rodzina_id], references: [id])
+  uzytkownik    Uzytkownik @relation(fields: [uzytkownik_id], references: [id])
+}
+
+model ListaZakupow {
+  id           Int        @id @default(autoincrement())
+  wlasciciel_id Int
+  rodzina_id   Int
+  nazwa        String
+
+  wlasciciel   Uzytkownik @relation(fields: [wlasciciel_id], references: [id])
+  rodzina      Rodzina    @relation(fields: [rodzina_id], references: [id])
+
+  produkty     Produkt[]
+}
+
+model Produkt {
+  id           Int       @id @default(autoincrement())
+  lista_id     Int
+  nazwa        String
+  kategoria_id Int?
+  ilosc        Float?
+  jednostka    String?
+  kupione      Boolean   @default(false)
+
+  lista        ListaZakupow @relation(fields: [lista_id], references: [id])
+  kategoria    Kategoria?   @relation(fields: [kategoria_id], references: [id])
+}
+
+model Kategoria {
+  id       Int       @id @default(autoincrement())
+  nazwa    String
+  produkty Produkt[]
+}

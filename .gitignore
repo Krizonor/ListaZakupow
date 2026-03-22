@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+.env
+dist/
+
+# React
+frontend/node_modules/
+frontend/build/
+c
+# VS Code
+.vscode/
+
+# Prisma
+backend/prisma/dev.db
