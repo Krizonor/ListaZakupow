@@ -88,7 +88,7 @@ function AddListModal({ families, onAdd, onClose }) {
         <label className="form-label">Nazwa listy</label>
         <input
           className="input"
-          placeholder="np. Tygodniowe zakupy"
+          placeholder="np. tygodniowe zakupy"
           value={nazwa}
           onChange={(e) => setNazwa(e.target.value)}
           autoFocus
