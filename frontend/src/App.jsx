@@ -83,7 +83,7 @@ function AddListModal({ families, onAdd, onClose }) {
 
   return (
     <Modal onClose={onClose}>
-      <p className="modal-title">Nowa Lista Zakupów</p>
+      <p className="modal-title">Nowa lista Zakupów</p>
       <div style={{ marginBottom: "14px" }}>
         <label className="form-label">Nazwa listy</label>
         <input
